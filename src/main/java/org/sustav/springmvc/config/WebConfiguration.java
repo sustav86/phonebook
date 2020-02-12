@@ -1,4 +1,4 @@
-package org.sustav.springmvc;
+package org.sustav.springmvc.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
