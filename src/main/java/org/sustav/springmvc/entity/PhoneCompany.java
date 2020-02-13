@@ -19,7 +19,6 @@ public class PhoneCompany {
     @Id @GeneratedValue
     private Long id;
     private String name;
-//    @OneToOne(fetch = FetchType.LAZY)
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "phone_id", nullable = false)
     private Phone phone;

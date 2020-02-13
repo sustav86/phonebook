@@ -1,15 +1,14 @@
 package org.sustav.springmvc.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.sustav.springmvc.dto.HumanDto;
 import org.sustav.springmvc.entity.Human;
-import org.sustav.springmvc.entity.Phone;
 import org.sustav.springmvc.repository.PhoneBookRepository;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author Anton Sustavov
@@ -24,11 +23,10 @@ public class PhoneBookServiceImpl implements PhoneBookService {
     public long create(HumanDto humanDto) {
         ModelMapper modelMapper = new ModelMapper();
         Human newHuman = modelMapper.map(humanDto, Human.class);
-        for (Phone phone :
-                newHuman.getPhone()) {
+        newHuman.getPhone().forEach(phone -> {
             phone.setHuman(newHuman);
             phone.getPhoneCompany().setPhone(phone);
-        }
+        });
         return phoneBookRepository.save(newHuman).getId();
     }
 

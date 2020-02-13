@@ -2,17 +2,13 @@ package org.sustav.springmvc.config;
 
 import java.util.Properties;
 
-
 import javax.persistence.EntityManagerFactory;
-import javax.servlet.annotation.WebServlet;
 import javax.sql.DataSource;
 
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -24,15 +20,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages="org.sustav.springmvc")
 public class HibernateConfiguration {
-//    @Bean
-//    public LocalSessionFactoryBean sessionFactory() {
-//        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-//        sessionFactory.setDataSource(dataSource());
-//        sessionFactory.setPackagesToScan("org.sustav.springmvc");
-//        sessionFactory.setHibernateProperties(hibernateProperties());
-//
-//        return sessionFactory;
-//    }
 
     @Bean
     public DataSource dataSource() {
@@ -63,11 +50,9 @@ public class HibernateConfiguration {
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-        LocalContainerEntityManagerFactoryBean em
-                = new LocalContainerEntityManagerFactoryBean();
+        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan(new String[] { "org.sustav.springmvc" });
-
+        em.setPackagesToScan("org.sustav.springmvc");
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
         em.setJpaProperties(hibernateProperties());
@@ -75,11 +60,4 @@ public class HibernateConfiguration {
         return em;
     }
 
-//    @Bean
-//    public ServletRegistrationBean h2servletRegistration() {
-//        ServletRegistrationBean registration = new ServletRegistrationBean(new WebServlet());
-//        registration.addUrlMappings("/console/*");
-//
-//        return registration;
-//    }
 }
