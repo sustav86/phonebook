@@ -1,5 +1,6 @@
 package org.sustav.springmvc.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -18,8 +19,9 @@ public class PhoneCompany {
     @Id @GeneratedValue
     private Long id;
     private String name;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "phone_id")
+//    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "phone_id", nullable = false)
     private Phone phone;
 
     public PhoneCompany(String name) {
@@ -43,5 +45,13 @@ public class PhoneCompany {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Phone getPhone() {
+        return phone;
+    }
+
+    public void setPhone(Phone phone) {
+        this.phone = phone;
     }
 }

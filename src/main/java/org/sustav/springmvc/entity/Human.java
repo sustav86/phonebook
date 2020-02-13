@@ -1,6 +1,8 @@
 package org.sustav.springmvc.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -20,7 +22,7 @@ public class Human {
     private Long id;
     private String name;
     private String surname;
-    @OneToMany(mappedBy="human")
+    @OneToMany(mappedBy="human", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Phone> phone;
 
     public Human() {

@@ -19,17 +19,17 @@ import javax.persistence.Table;
 public class Phone {
     @Id @GeneratedValue
     private Long id;
-    private int kod;
+    private int countryCode;
     private int number;
-    @ManyToOne
-    @JoinColumn(name="human_id", nullable=false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="human_id", nullable = false)
     private Human human;
     @OneToOne(mappedBy = "phone", cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY, optional = false)
+            fetch = FetchType.EAGER, optional = false)
     private PhoneCompany phoneCompany;
 
-    public Phone(int kod, int number, PhoneCompany phoneCompany) {
-        this.kod = kod;
+    public Phone(int countryCode, int number, PhoneCompany phoneCompany) {
+        this.countryCode = countryCode;
         this.number = number;
         this.phoneCompany = phoneCompany;
     }
@@ -45,12 +45,12 @@ public class Phone {
         this.id = id;
     }
 
-    public int getKod() {
-        return kod;
+    public int getCountryCode() {
+        return countryCode;
     }
 
-    public void setKod(int kod) {
-        this.kod = kod;
+    public void setCountryCode(int kod) {
+        this.countryCode = kod;
     }
 
     public int getNumber() {
@@ -67,5 +67,13 @@ public class Phone {
 
     public void setPhoneCompany(PhoneCompany phoneCompany) {
         this.phoneCompany = phoneCompany;
+    }
+
+    public Human getHuman() {
+        return human;
+    }
+
+    public void setHuman(Human human) {
+        this.human = human;
     }
 }
