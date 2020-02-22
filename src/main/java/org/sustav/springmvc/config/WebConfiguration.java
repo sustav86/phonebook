@@ -1,5 +1,6 @@
 package org.sustav.springmvc.config;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -54,5 +55,10 @@ public class WebConfiguration implements WebMvcConfigurer {
         SimpleMappingExceptionResolver simpleMappingExceptionResolver = new SimpleMappingExceptionResolver();
         simpleMappingExceptionResolver.setDefaultErrorView("error");
         return simpleMappingExceptionResolver;
+    }
+
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
     }
 }

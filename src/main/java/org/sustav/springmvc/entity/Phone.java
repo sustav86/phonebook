@@ -15,15 +15,15 @@ import javax.persistence.Table;
  * @since 2020/02/11
  */
 @Entity
-@Table(name = "phone")
+@Table(name = "phones")
 public class Phone {
     @Id @GeneratedValue
     private Long id;
     private int countryCode;
     private int number;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="human_id", nullable = false)
-    private Human human;
+    @JoinColumn(name="user_id", nullable = false)
+    private User user;
     @OneToOne(mappedBy = "phone", cascade = CascadeType.ALL,
             fetch = FetchType.EAGER, optional = false)
     private PhoneCompany phoneCompany;
@@ -69,11 +69,11 @@ public class Phone {
         this.phoneCompany = phoneCompany;
     }
 
-    public Human getHuman() {
-        return human;
+    public User getUser() {
+        return user;
     }
 
-    public void setHuman(Human human) {
-        this.human = human;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

@@ -1,7 +1,6 @@
 package org.sustav.springmvc;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-import org.sustav.springmvc.config.HibernateConfiguration;
 import org.sustav.springmvc.config.WebConfiguration;
 
 /**
@@ -11,7 +10,7 @@ import org.sustav.springmvc.config.WebConfiguration;
 public class WebApplicationInitialiser extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[]{WebConfiguration.class, HibernateConfiguration.class};
+        return new Class[]{WebConfiguration.class};
     }
 
     @Override

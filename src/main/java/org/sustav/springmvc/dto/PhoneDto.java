@@ -5,15 +5,6 @@ public class PhoneDto {
     private int number;
     private PhoneCompanyDto phoneCompany;
 
-    public PhoneDto() {
-    }
-
-    public PhoneDto(int countryCode, int number, PhoneCompanyDto phoneCompany) {
-        this.countryCode = countryCode;
-        this.number = number;
-        this.phoneCompany = phoneCompany;
-    }
-
     public int getCountryCode() {
         return countryCode;
     }
@@ -38,12 +29,4 @@ public class PhoneDto {
         this.phoneCompany = phoneCompany;
     }
 
-    @Override
-    public String toString() {
-        return "PhoneDto{" +
-                "countryCode=" + countryCode +
-                ", number=" + number +
-                ", phoneCompany=" + phoneCompany +
-                '}';
-    }
 }

@@ -2,7 +2,7 @@ package org.sustav.springmvc.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import org.sustav.springmvc.entity.Human;
+import org.sustav.springmvc.entity.User;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
  * @since 2020/02/12
  */
 @Repository
-public interface PhoneBookRepository extends CrudRepository<Human, Long> {
+public interface PhoneBookRepository extends CrudRepository<User, Long> {
     @Override
-    List<Human> findAll();
+    List<User> findAll();
 }

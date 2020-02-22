@@ -1,15 +1,5 @@
 package org.sustav.springmvc.service;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.util.List;
-import java.util.Set;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.sustav.springmvc.dto.HumanDto;
-import org.sustav.springmvc.dto.PhoneDto;
-
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
@@ -18,21 +8,29 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.sustav.springmvc.entity.Phone;
+import org.sustav.springmvc.entity.User;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.util.List;
 
 /**
  * @author Anton Sustavov
  * @since 2020/02/13
  */
 @Service
-public class PhoneBookFileServiceImpl implements PhoneBookFileService {
+public class FileService implements IFileService {
     @Autowired
-    private PhoneBookServiceImpl phoneBookService;
+    private UserService userService;
 
     @Override
     public ByteArrayInputStream createPdf() throws Exception {
         Document document = new Document();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        List<HumanDto> humanDtos = phoneBookService.showAll();
+        List<User> users = userService.allUsers();
 
         PdfPTable table = new PdfPTable(5);
         table.setWidthPercentage(60);
@@ -61,17 +59,17 @@ public class PhoneBookFileServiceImpl implements PhoneBookFileService {
         hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(hcell);
 
-        for (HumanDto human : humanDtos) {
-            Set<PhoneDto> phones = human.getPhone();
-            for (PhoneDto phone: phones) {
+        for (User user : users) {
+            List<Phone> phones = user.getPhones();
+            for (Phone phone: phones) {
                 PdfPCell cell;
 
-                cell = new PdfPCell(new Phrase(human.getName()));
+                cell = new PdfPCell(new Phrase(user.getUsername()));
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Phrase(human.getSurname()));
+                cell = new PdfPCell(new Phrase(user.getSurname()));
                 cell.setPaddingLeft(5);
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cell.setHorizontalAlignment(Element.ALIGN_LEFT);
