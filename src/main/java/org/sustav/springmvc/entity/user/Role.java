@@ -1,4 +1,4 @@
-package org.sustav.springmvc.entity;
+package org.sustav.springmvc.entity.user;
 
 import org.springframework.security.core.GrantedAuthority;
 

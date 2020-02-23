@@ -6,8 +6,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.sustav.springmvc.entity.Role;
-import org.sustav.springmvc.entity.User;
+import org.sustav.springmvc.entity.user.Role;
+import org.sustav.springmvc.entity.user.User;
 import org.sustav.springmvc.repository.RoleRepository;
 import org.sustav.springmvc.repository.UserRepository;
 
@@ -68,7 +68,11 @@ public class UserService implements UserDetailsService {
             return false;
         }
 
-        user.setRoles(Collections.singleton(new Role("ROLE_RESGISTERED_USER")));
+        if (!user.getManager()) {
+            user.setRoles(Collections.singleton(new Role("ROLE_RESGISTERED_USER")));
+        }else {
+            user.setRoles(Collections.singleton(new Role("ROLE_BOOKING_MANAGER")));
+        }
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return true;

@@ -1,4 +1,4 @@
-package org.sustav.springmvc.entity;
+package org.sustav.springmvc.entity.person;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -14,7 +14,7 @@ import javax.persistence.Table;
  * @since 2020/02/11
  */
 @Entity
-@Table(name = "phone_company")
+@Table(name = "phone_companies")
 public class PhoneCompany {
     @Id @GeneratedValue
     private Long id;

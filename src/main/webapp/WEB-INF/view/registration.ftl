@@ -16,7 +16,7 @@
     response.sendRedirect("/")
 </@security.authorize>
 <@spring.bind "user"/>
-<@spring.bind "phoneNumbers"/>
+<@spring.bind "person"/>
 <#--TODO contextPath-->
 <form action="/phonebooks/registration" method="POST">
     Username:<br>
@@ -31,12 +31,20 @@
     <@spring.formInput fieldType="password" path="user.passwordConfirm"/>
     <@spring.showErrors "<br>"/>
     <br><br>
-    Surname:<br>
-    <@spring.formInput "user.surname"/>
+    Manager:<br>
+    <@spring.formCheckbox "user.manager"/>
+    <@spring.showErrors "error""<br>"/>
+    <br><br>
+    Details:<br><br>
+    First name:<br>
+    <@spring.formInput "person.firstName"/>
     <@spring.showErrors "<br>"/>
     <br><br>
-    Details:<br>
-    <#list phoneNumbers as phone>
+    Last name:<br>
+    <@spring.formInput "person.lastName"/>
+    <@spring.showErrors "<br>"/>
+    <br><br>
+    <#list person.phoneNumbers as phone>
         Country code <input type="number" name="phoneNumbers[${phone_index}].countryCode" value="${phone.countryCode}"/>
         Number <input type="number" name="phoneNumbers[${phone_index}].number" value="${phone.number}"/>
         Phone company <input type="text" name="phoneNumbers[${phone_index}].phoneCompany.name"/>

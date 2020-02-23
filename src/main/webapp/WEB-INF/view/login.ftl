@@ -8,9 +8,9 @@
 <header>
     <h1>Login to account</h1>
 </header>
-<section>
-    <h1>Login</h1>
-</section>
+<#--<section>-->
+<#--    <h1>Login</h1>-->
+<#--</section>-->
 <@security.authorize access="isAuthenticated()">
     response.sendRedirect("/")
 </@security.authorize>

@@ -7,11 +7,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.sustav.springmvc.entity.Phone;
-import org.sustav.springmvc.entity.PhoneCompany;
-import org.sustav.springmvc.entity.User;
+import org.sustav.springmvc.entity.person.Person;
+import org.sustav.springmvc.entity.person.Phone;
+import org.sustav.springmvc.entity.person.PhoneCompany;
+import org.sustav.springmvc.entity.user.User;
 import org.sustav.springmvc.service.UserService;
-import org.sustav.springmvc.wrapper.DetailsWrapper;
+import org.sustav.springmvc.util.ViewName;
+
+import javax.validation.Valid;
 
 /**
  * @author Anton Sustavov
@@ -26,44 +29,47 @@ public class RegistrationController {
     @GetMapping("/registration")
     public ModelAndView registration(ModelAndView model) {
         model.addObject("user", new User());
-        DetailsWrapper detailsWrapper = new DetailsWrapper();
-        detailsWrapper.add(new Phone());
-        detailsWrapper.add(new Phone());
-        model.addObject("phoneNumbers", detailsWrapper.getPhoneNumbers());
-        model.setViewName("registration");
+        Person newPerson = new Person();
+        newPerson.addPhone(new Phone());
+        newPerson.addPhone(new Phone());
+        model.addObject("person", newPerson);
+        model.setViewName(ViewName.REGISTRATION);
 
         return model;
     }
 
     @PostMapping("/registration")
-    public ModelAndView addUser(@ModelAttribute("user") User user,
-                                @ModelAttribute("detailsWrapper") DetailsWrapper detailsWrapper,
-                                BindingResult bindingResult, ModelAndView model) {
+    public ModelAndView addUser(@ModelAttribute("user") @Valid User user,
+                                BindingResult bindingResultUser,
+                                @ModelAttribute("person") @Valid Person person,
+                                BindingResult bindingResultPerson,
+                                ModelAndView model) {
 
-        model.setViewName("registration");
-        if (bindingResult.hasErrors()) {
+        model.setViewName(ViewName.REGISTRATION);
+        if (bindingResultUser.hasErrors() || bindingResultPerson.hasErrors()) {
             return model;
         }
         if (!user.getPassword().equals(user.getPasswordConfirm())){
             model.addObject("passwordError", "Password doesn't mach");
             return model;
         }
-        if (!detailsWrapper.getPhoneNumbers().isEmpty()) {
-            mergeDetails(user, detailsWrapper);
-        }
+
+        mergeDetails(user, person);
+
         if (!userService.saveUser(user)){
             model.addObject("usernameError", "User already exists.");
             return model;
         }
-        model.setViewName("redirect:/");
+        model.setViewName(ViewName.ROOT);
 
         return model;
     }
 
-    private void mergeDetails(User user, DetailsWrapper detailsWrapper) {
-        user.setPhones(detailsWrapper.getPhoneNumbers());
-        detailsWrapper.getPhoneNumbers().forEach(phone -> {
-            phone.setUser(user);
+    private void mergeDetails(User user, Person person) {
+//        user.setPerson(person);
+//        person.setUser(user);
+        person.getPhoneNumbers().forEach(phone -> {
+            phone.setPerson(person);
             PhoneCompany phoneCompany;
             if ((phoneCompany = phone.getPhoneCompany()) != null) {
                 phoneCompany.setPhone(phone);

@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.sustav.springmvc.util.ViewName;
 
 /**
  * @author Anton Sustavov
@@ -14,9 +15,9 @@ public class WelcomeController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView welcomePage(ModelAndView model) {
-        model.addObject("title", "Spring Security Tutorial");
-        model.addObject("message", "Welcome Page !");
-        model.setViewName("welcome");
+//        model.addObject("title", "Spring Security Tutorial");
+//        model.addObject("message", "Welcome Page !");
+        model.setViewName(ViewName.WELCOME);
 
         return model;
     }

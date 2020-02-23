@@ -6,43 +6,33 @@
 </head>
 <body>
 <header>
-    <h1>User</h1>
+    <h1>${user.username}</h1>
 </header>
-<section>
-    <h1>User</h1>
-</section>
 <table>
     <thead>
     <th>ID</th>
     <th>UserName</th>
-    <th>Surname</th>
+    <th>First name</th>
+    <th>Last name</th>
     <th>Phones</th>
     <th>Phone companies</th>
     <th>Roles</th>
     </thead>
-<#--    <c:forEach items="${allUsers}" var="user">-->
         <tr>
             <td>${user.id}</td>
             <td>${user.username}</td>
-            <td>${user.surname}</td>
+            <td>${user.person.firstName}</td>
+            <td>${user.person.lastName}</td>
             <td>
-                <#list user.phones as phone>${phone.countryCode}${phone.number}; </#list>
+                <#list user.person.phoneNumbers as phone>${phone.countryCode}${phone.number}; </#list>
             </td>
             <td>
-                <#list user.phones as phone>${phone.phoneCompany.name}; </#list>
+                <#list user.person.phoneNumbers as phone>${phone.phoneCompany.name}; </#list>
             </td>
             <td>
                 <#list user.roles as role>${role.name}; </#list>
             </td>
-<#--            <td>-->
-<#--                <form action="${pageContext.request.contextPath}/admin" method="post">-->
-<#--                    <input type="hidden" name="userId" value="${user.id}"/>-->
-<#--                    <input type="hidden" name="action" value="delete"/>-->
-<#--                    <button type="submit">Delete</button>-->
-<#--                </form>-->
-<#--            </td>-->
         </tr>
-<#--    </c:forEach>-->
 </table>
 <footer>
     <div>Updated by Sustavov Anton</div>

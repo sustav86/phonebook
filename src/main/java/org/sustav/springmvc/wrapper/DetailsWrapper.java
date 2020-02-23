@@ -1,6 +1,6 @@
 package org.sustav.springmvc.wrapper;
 
-import org.sustav.springmvc.entity.Phone;
+import org.sustav.springmvc.entity.person.Phone;
 
 import java.util.ArrayList;
 import java.util.List;

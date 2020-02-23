@@ -22,6 +22,7 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-databind:2.10.2'
     runtime 'com.h2database:h2:1.4.200'
     compile 'org.hibernate:hibernate-core:5.4.11.Final'
+    compile 'org.hibernate.validator:hibernate-validator:6.1.2.Final'
     compile 'org.apache.tomcat:tomcat-dbcp:9.0.30'
     compile 'org.modelmapper:modelmapper:2.3.6'
     compile 'org.springframework.data:spring-data-jpa:2.2.4.RELEASE'

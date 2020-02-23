@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.sustav.springmvc.dto.UserDto;
-import org.sustav.springmvc.entity.User;
+import org.sustav.springmvc.entity.user.User;
 import org.sustav.springmvc.service.IMultipartFile;
 import org.sustav.springmvc.service.IFileService;
 import org.sustav.springmvc.service.UserService;

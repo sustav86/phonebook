@@ -1,7 +1,8 @@
-package org.sustav.springmvc.entity;
+package org.sustav.springmvc.entity.user;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.sustav.springmvc.entity.person.Person;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -9,11 +10,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -25,15 +27,24 @@ import java.util.Set;
 public class User implements UserDetails {
     @Id @GeneratedValue
     private Long id;
+    @NotEmpty(message = "{username.notempty}")
+    @Size(min=2, max=30, message = "{username.size}")
     private String username;
-    private String surname;
+    @NotEmpty(message = "{password.notempty}")
+    @Size(min=2, max=10, message = "{password.size}")
     private String password;
     @Transient
+    @NotEmpty(message = "{passwordConfirm.notempty}")
+    @Size(min=2, max=10, message = "{passwordConfirm.size}")
     private String passwordConfirm;
+    private boolean manager;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Role> roles;
-    @OneToMany(mappedBy="user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Phone> phones;
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "person_id")
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER, optional = false)
+    private Person person;
 
     public User() {
     }
@@ -52,14 +63,6 @@ public class User implements UserDetails {
 
     public void setUsername(String name) {
         this.username = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
     }
 
     @Override
@@ -87,12 +90,20 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    public List<Phone> getPhones() {
-        return phones;
+    public boolean getManager() {
+        return manager;
     }
 
-    public void setPhones(List<Phone> phone) {
-        this.phones = phone;
+    public void setManager(boolean manager) {
+        this.manager = manager;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
     @Override

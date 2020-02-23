@@ -10,8 +10,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.sustav.springmvc.entity.Phone;
-import org.sustav.springmvc.entity.User;
+import org.sustav.springmvc.entity.user.User;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -59,41 +58,41 @@ public class FileService implements IFileService {
         hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(hcell);
 
-        for (User user : users) {
-            List<Phone> phones = user.getPhones();
-            for (Phone phone: phones) {
-                PdfPCell cell;
-
-                cell = new PdfPCell(new Phrase(user.getUsername()));
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                table.addCell(cell);
-
-                cell = new PdfPCell(new Phrase(user.getSurname()));
-                cell.setPaddingLeft(5);
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-                table.addCell(cell);
-
-                cell = new PdfPCell(new Phrase(String.valueOf(phone.getCountryCode())));
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-                cell.setPaddingRight(5);
-                table.addCell(cell);
-
-                cell = new PdfPCell(new Phrase(String.valueOf(phone.getNumber())));
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-                cell.setPaddingRight(5);
-                table.addCell(cell);
-
-                cell = new PdfPCell(new Phrase(phone.getPhoneCompany().getName()));
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-                cell.setPaddingRight(5);
-                table.addCell(cell);
-            }
-        }
+//        for (User user : users) {
+//            List<Phone> phones = user.getPhones();
+//            for (Phone phone: phones) {
+//                PdfPCell cell;
+//
+//                cell = new PdfPCell(new Phrase(user.getUsername()));
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                table.addCell(cell);
+//
+//                cell = new PdfPCell(new Phrase(user.getSurname()));
+//                cell.setPaddingLeft(5);
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+//                table.addCell(cell);
+//
+//                cell = new PdfPCell(new Phrase(String.valueOf(phone.getCountryCode())));
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+//                cell.setPaddingRight(5);
+//                table.addCell(cell);
+//
+//                cell = new PdfPCell(new Phrase(String.valueOf(phone.getNumber())));
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+//                cell.setPaddingRight(5);
+//                table.addCell(cell);
+//
+//                cell = new PdfPCell(new Phrase(phone.getPhoneCompany().getName()));
+//                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+//                cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+//                cell.setPaddingRight(5);
+//                table.addCell(cell);
+//            }
+//        }
 
         PdfWriter.getInstance(document, out);
         document.open();

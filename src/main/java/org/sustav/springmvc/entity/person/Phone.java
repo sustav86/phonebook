@@ -1,4 +1,4 @@
-package org.sustav.springmvc.entity;
+package org.sustav.springmvc.entity.person;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -22,17 +22,11 @@ public class Phone {
     private int countryCode;
     private int number;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="user_id", nullable = false)
-    private User user;
+    @JoinColumn(name="person_id", nullable = false)
+    private Person person;
     @OneToOne(mappedBy = "phone", cascade = CascadeType.ALL,
             fetch = FetchType.EAGER, optional = false)
     private PhoneCompany phoneCompany;
-
-    public Phone(int countryCode, int number, PhoneCompany phoneCompany) {
-        this.countryCode = countryCode;
-        this.number = number;
-        this.phoneCompany = phoneCompany;
-    }
 
     public Phone() {
     }
@@ -69,11 +63,11 @@ public class Phone {
         this.phoneCompany = phoneCompany;
     }
 
-    public User getUser() {
-        return user;
+    public Person getPerson() {
+        return person;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setPerson(Person person) {
+        this.person = person;
     }
 }

@@ -2,7 +2,7 @@ package org.sustav.springmvc.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import org.sustav.springmvc.entity.User;
+import org.sustav.springmvc.entity.user.User;
 
 /**
  * @author Anton Sustavov

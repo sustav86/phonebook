@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.sustav.springmvc.dto.UserDto;
-import org.sustav.springmvc.entity.User;
+import org.sustav.springmvc.entity.user.User;
 
 import java.io.InputStream;
 import java.util.List;

@@ -2,7 +2,7 @@ package org.sustav.springmvc.service;
 
 import org.springframework.web.multipart.MultipartFile;
 import org.sustav.springmvc.dto.UserDto;
-import org.sustav.springmvc.entity.User;
+import org.sustav.springmvc.entity.user.User;
 
 import java.util.List;
 
