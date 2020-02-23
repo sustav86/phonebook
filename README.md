@@ -3,8 +3,10 @@
 MultipartFile example:
 ```
 {
-    "name": "Mike",
-    "surname": "Mikel",
+    "username": "Mike",
+    "firstName": "Mikel",
+    "lastName": "Tyson",
+    "roles": [{"name" : "ROLE_RESGISTERED_USER"}],
     "phone": [{
             "countryCode": 5,
             "number": 66666,
