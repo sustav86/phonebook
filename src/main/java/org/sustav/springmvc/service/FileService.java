@@ -32,18 +32,22 @@ public class FileService implements IFileService {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         List<User> users = userService.allUsers();
 
-        PdfPTable table = new PdfPTable(5);
+        PdfPTable table = new PdfPTable(6);
         table.setWidthPercentage(60);
-        table.setWidths(new int[]{3, 3, 3, 3, 3});
+        table.setWidths(new int[]{3, 3, 3, 3, 3, 3});
 
         Font headFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
 
         PdfPCell hcell;
-        hcell = new PdfPCell(new Phrase("Name", headFont));
+        hcell = new PdfPCell(new Phrase("Username", headFont));
         hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(hcell);
 
-        hcell = new PdfPCell(new Phrase("Surname", headFont));
+        hcell = new PdfPCell(new Phrase("First name", headFont));
+        hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(hcell);
+
+        hcell = new PdfPCell(new Phrase("Last name", headFont));
         hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(hcell);
 
@@ -69,7 +73,13 @@ public class FileService implements IFileService {
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Phrase(user.getSurname()));
+                cell = new PdfPCell(new Phrase(user.getFirstName()));
+                cell.setPaddingLeft(5);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                table.addCell(cell);
+
+                cell = new PdfPCell(new Phrase(user.getLastName()));
                 cell.setPaddingLeft(5);
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cell.setHorizontalAlignment(Element.ALIGN_LEFT);

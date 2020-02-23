@@ -14,8 +14,6 @@ public class WelcomeController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView welcomePage(ModelAndView model) {
-        model.addObject("title", "Spring Security Tutorial");
-        model.addObject("message", "Welcome Page !");
         model.setViewName("welcome");
 
         return model;

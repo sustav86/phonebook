@@ -19,49 +19,28 @@ import org.sustav.springmvc.service.UserService;
 @EnableWebSecurity
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-//    @Autowired
-//    private DataSource dataSource;
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
     @Autowired
     UserService userService;
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication().withUser("user").password(passwordEncoder.encode("user")).roles("USER");
-//        auth.inMemoryAuthentication().withUser("admin").password(passwordEncoder.encode("admin")).roles("ADMIN");
-//        auth.inMemoryAuthentication().withUser("superadmin").password("superadmin").roles("SUPERADMIN");
-//        auth.jdbcAuthentication().dataSource(dataSource).withDefaultSchema()
-//                .withUser(User.withUsername("user")
-//                        .password(passwordEncoder().encode("pass"))
-//                        .roles("USER"));
         auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests()
-//                .antMatchers("/phone/**").hasRole("USER")
-//                .antMatchers("/confidential/**").hasRole("SUPERADMIN")
-//                .and().formLogin().defaultSuccessUrl("/", false);
         http
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                //Доступ только для не зарегистрированных пользователей
-                .antMatchers("/registration").not().fullyAuthenticated()
-                //Доступ только для пользователей с ролью Администратор
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/news").hasRole("USER")
-                //Доступ разрешен всем пользователей
+                .antMatchers("/register").not().fullyAuthenticated()
+                .antMatchers("/manager/**").hasRole("BOOKING_MANAGER")
+                .antMatchers("/user/**").hasRole("RESGISTERED_USER")
                 .antMatchers("/", "/resources/**").permitAll()
-                //Все остальные страницы требуют аутентификации
                 .anyRequest().authenticated()
                 .and()
-                //Настройка для входа в систему
                 .formLogin()
                 .loginPage("/login")
-                //Перенарпавление на главную страницу после успешного входа
                 .defaultSuccessUrl("/")
                 .permitAll()
                 .and()

@@ -5,8 +5,6 @@
 <body>
 <h3>This is default exception page</h3>
 <p>Exception: <b>${exception}</b></p>
-<form method="get" action="${springMacroRequestContext.contextPath}/" target="_self">
-    <button type="submit">Home</button>
-</form>
+<h4><a href="${springMacroRequestContext.contextPath}/">Home</a></h4>
 </body>
 </html>

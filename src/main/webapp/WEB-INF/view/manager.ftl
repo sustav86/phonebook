@@ -6,11 +6,8 @@
 </head>
 <body>
 <header>
-    <h1>Users</h1>
+    <h1><@security.authentication property="principal.username"/></h1>
 </header>
-<section>
-    <h1>Users</h1>
-</section>
 <form method="post" action="${springMacroRequestContext.contextPath}/upload" enctype="multipart/form-data">
     <table>
         <tr>
@@ -23,8 +20,10 @@
 <table>
     <thead>
     <th>ID</th>
-    <th>UserName</th>
-    <th>Surname</th>
+    <th>Username</th>
+    <th>Manager</th>
+    <th>First name</th>
+    <th>Last name</th>
     <th>Phones</th>
     <th>Phone companies</th>
     <th>Roles</th>
@@ -33,7 +32,9 @@
         <tr>
             <td>${user.id}</td>
             <td>${user.username}</td>
-            <td>${user.surname}</td>
+            <td>${user.manager?c}</td>
+            <td>${user.firstName}</td>
+            <td>${user.lastName}</td>
             <td>
                 <#list user.phones as phone>${phone.countryCode}${phone.number}; </#list>
             </td>
@@ -43,21 +44,27 @@
             <td>
                 <#list user.roles as role>${role.name}; </#list>
             </td>
-<#--            <td>-->
-<#--                <form action="${pageContext.request.contextPath}/admin" method="post">-->
-<#--                    <input type="hidden" name="userId" value="${user.id}"/>-->
-<#--                    <input type="hidden" name="action" value="delete"/>-->
-<#--                    <button type="submit">Delete</button>-->
-<#--                </form>-->
-<#--            </td>-->
+            <td>
+                <form action="${springMacroRequestContext.contextPath}/manager/users/${user.id}" method="get">
+                    <button type="submit">update</button>
+                </form>
+            </td>
+            <td>
+                <form action="${springMacroRequestContext.contextPath}/manager/users/${user.id}" method="post">
+                    <input type="hidden" name="_method" value="delete"/>
+                    <input type="hidden" name="userName" value="${user.username}"/>
+                    <button type="submit">delete</button>
+                </form>
+            </td>
         </tr>
     </#list>
 </table>
 <form method="get" action="${springMacroRequestContext.contextPath}/download/pdf">
     <input type="submit" value="Download"/></td>
 </form>
+<h4><a href="${springMacroRequestContext.contextPath}/">Home</a></h4>
 </footer>
-    <div>Updated by Sustavov Anton</div>
+<div>Updated by Sustavov Anton</div>
 </footer>
 </body>
 </html>

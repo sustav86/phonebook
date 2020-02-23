@@ -20,7 +20,7 @@ public class PhoneCompany {
     private Long id;
     private String name;
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "phone_id", nullable = false)
+    @JoinColumn(name = "phone_id")
     private Phone phone;
 
     public PhoneCompany(String name) {

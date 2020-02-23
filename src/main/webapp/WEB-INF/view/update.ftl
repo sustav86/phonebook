@@ -7,18 +7,14 @@
 </head>
 <body>
 <header>
-    <h1>Registration</h1>
+    <h1>Update</h1>
 </header>
-<section>
-    <h1>Registration</h1>
-</section>
-<@security.authorize access="isAuthenticated()">
+<@security.authorize access="!isAuthenticated()">
     response.sendRedirect("/")
 </@security.authorize>
-<@spring.bind "user"/>
-<@spring.bind "phoneNumbers"/>
 <#--TODO contextPath-->
-<form action="/phonebooks/registration" method="POST">
+<form action="/phonebooks/manager/users/${user.id}" method="post">
+    <input type="hidden" name="_method" value="put"/>
     Username:<br>
     <@spring.formInput "user.username"/>
     <@spring.showErrors "<br>"/>
@@ -31,18 +27,26 @@
     <@spring.formInput fieldType="password" path="user.passwordConfirm"/>
     <@spring.showErrors "<br>"/>
     <br><br>
-    Surname:<br>
-    <@spring.formInput "user.surname"/>
+    Manager:<br>
+    <@spring.formCheckbox path="user.manager"/>
     <@spring.showErrors "<br>"/>
     <br><br>
-    Details:<br>
-    <#list phoneNumbers as phone>
-        Country code <input type="number" name="phoneNumbers[${phone_index}].countryCode" value="${phone.countryCode}"/>
-        Number <input type="number" name="phoneNumbers[${phone_index}].number" value="${phone.number}"/>
-        Phone company <input type="text" name="phoneNumbers[${phone_index}].phoneCompany.name"/>
+    Details:<br><br>
+    First name:<br>
+    <@spring.formInput "user.firstName"/>
+    <@spring.showErrors "<br>"/>
+    <br><br>
+    Last name:<br>
+    <@spring.formInput "user.lastName"/>
+    <@spring.showErrors "<br>"/>
+    <br><br>
+    <#list user.phones as phone>
+        Country code <input type="number" name="phones[${phone_index}].countryCode" value="${phone.countryCode}"/>
+        Number <input type="number" name="phones[${phone_index}].number" value="${phone.number}"/>
+        Phone company <input type="text" name="phones[${phone_index}].phoneCompany.name" value="${phone.phoneCompany.name}"/>
         <br><br>
     </#list>
-    <input type="submit" value="Submit">
+    <input type="submit" value="Update">
 </form>
 <footer>
     <div>Updated by Sustavov Anton</div>

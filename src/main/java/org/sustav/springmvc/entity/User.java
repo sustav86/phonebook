@@ -26,10 +26,12 @@ public class User implements UserDetails {
     @Id @GeneratedValue
     private Long id;
     private String username;
-    private String surname;
+    private String firstName;
+    private String lastName;
     private String password;
     @Transient
     private String passwordConfirm;
+    private boolean manager;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Role> roles;
     @OneToMany(mappedBy="user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -54,12 +56,28 @@ public class User implements UserDetails {
         this.username = name;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setFirstName(String surname) {
+        this.firstName = surname;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public boolean isManager() {
+        return manager;
+    }
+
+    public void setManager(boolean manager) {
+        this.manager = manager;
     }
 
     @Override

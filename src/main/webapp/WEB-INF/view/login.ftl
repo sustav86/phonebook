@@ -8,9 +8,6 @@
 <header>
     <h1>Login to account</h1>
 </header>
-<section>
-    <h1>Login</h1>
-</section>
 <@security.authorize access="isAuthenticated()">
     response.sendRedirect("/")
 </@security.authorize>
@@ -22,7 +19,7 @@
             <td>Login</td>
             <td><input name="username" type="text" placeholder="Username" autofocus="true"/></td>
             <td><input name="password" type="password" placeholder="Password"/></td>
-            <td><input type="submit" value="Submit"/></td>
+            <td><input type="submit" value="Login"/></td>
         </tr>
     </table>
 </form>

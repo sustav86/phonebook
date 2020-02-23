@@ -11,8 +11,6 @@ import org.sustav.springmvc.entity.User;
 import org.sustav.springmvc.repository.RoleRepository;
 import org.sustav.springmvc.repository.UserRepository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -24,8 +22,6 @@ import java.util.Optional;
 @Service
 public class UserService implements UserDetailsService {
 
-    @PersistenceContext
-    private EntityManager em;
     @Autowired
     UserRepository userRepository;
     @Autowired
@@ -41,6 +37,24 @@ public class UserService implements UserDetailsService {
         }
 
         return user;
+    }
+
+    public boolean saveUser(User user) {
+        User userFromDB = userRepository.findByUsername(user.getUsername());
+
+        if (userFromDB != null) {
+            return false;
+        }
+
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+        return true;
+    }
+
+    public boolean updateUser(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+        return true;
     }
 
     public User findUserById(Long userId) {
@@ -61,19 +75,6 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
-    public boolean saveUser(User user) {
-        User userFromDB = userRepository.findByUsername(user.getUsername());
-
-        if (userFromDB != null) {
-            return false;
-        }
-
-        user.setRoles(Collections.singleton(new Role("ROLE_RESGISTERED_USER")));
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
-        return true;
-    }
-
     public boolean saveAll(List<User> users) {
         users.forEach(user -> {
             user.setRoles(Collections.singleton(new Role("ROLE_RESGISTERED_USER")));
@@ -91,8 +92,4 @@ public class UserService implements UserDetailsService {
         return false;
     }
 
-    public List<User> usergtList(Long idMin) {
-        return em.createQuery("SELECT u FROM User u WHERE u.id > :paramId", User.class)
-                .setParameter("paramId", idMin).getResultList();
-    }
 }
