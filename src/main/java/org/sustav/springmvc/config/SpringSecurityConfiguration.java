@@ -35,7 +35,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/register").not().fullyAuthenticated()
                 .antMatchers("/manager/**").hasRole("BOOKING_MANAGER")
-                .antMatchers("/user/**").hasRole("RESGISTERED_USER")
+                .antMatchers("/user/**").hasAnyRole("RESGISTERED_USER", "BOOKING_MANAGER")
                 .antMatchers("/", "/resources/**").permitAll()
                 .anyRequest().authenticated()
                 .and()

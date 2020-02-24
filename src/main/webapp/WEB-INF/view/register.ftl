@@ -12,8 +12,7 @@
 <@security.authorize access="isAuthenticated()">
     response.sendRedirect("/")
 </@security.authorize>
-<#--TODO contextPath-->
-<form action="/phonebooks/register" method="post">
+<form action="${springMacroRequestContext.contextPath}/register" method="post">
     Username:<br>
     <@spring.formInput "userForm.username"/>
     <@spring.showErrors "<br>"/>

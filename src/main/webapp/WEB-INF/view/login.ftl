@@ -11,9 +11,7 @@
 <@security.authorize access="isAuthenticated()">
     response.sendRedirect("/")
 </@security.authorize>
-<#--TODO-->
-<#--<form method="POST" action="${springMacroRequestContext.contextPath}/login">-->
-<form method="POST" action="/phonebooks/login">
+<form method="POST" action="${springMacroRequestContext.contextPath}/login">
     <table>
         <tr>
             <td>Login</td>

@@ -15,8 +15,6 @@
     </@security.authorize>
 </header>
 <@security.authorize access="!isAuthenticated()">
-<#--    TODO-->
-<#--    <h4><a href="/login">Login</a></h4>-->
     <h4><a href="${springMacroRequestContext.contextPath}/login">Login</a></h4>
     <h4><a href="${springMacroRequestContext.contextPath}/register">Signup</a></h4>
 </@security.authorize>

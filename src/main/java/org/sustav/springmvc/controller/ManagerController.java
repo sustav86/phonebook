@@ -1,5 +1,8 @@
 package org.sustav.springmvc.controller;
 
+import java.security.Principal;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,9 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.sustav.springmvc.entity.Phone;
 import org.sustav.springmvc.entity.User;
 import org.sustav.springmvc.service.UserService;
-
-import java.security.Principal;
-import java.util.List;
 
 /**
  * @author Anton Sustavov
@@ -58,7 +58,7 @@ public class ManagerController {
     private void deleteUser(Long id, String userName, ModelAndView model, Principal principal) {
         userService.deleteUser(id);
         if (principal.getName().equals(userName)) {
-            model.setViewName("logout");
+            model.setViewName("redirect:/logout");
         } else {
             model.addObject("users", userService.allUsers());
             model.setViewName("manager");
