@@ -1,8 +1,5 @@
 package org.sustav.springmvc.controller;
 
-import java.security.Principal;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +10,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.sustav.springmvc.entity.Phone;
 import org.sustav.springmvc.entity.User;
 import org.sustav.springmvc.service.UserService;
+
+import java.security.Principal;
+import java.util.List;
 
 /**
  * @author Anton Sustavov
@@ -77,6 +77,8 @@ public class ManagerController {
             phones.get(i).setCountryCode(phonesUpd.get(i).getCountryCode());
             phones.get(i).setNumber(phonesUpd.get(i).getNumber());
             phones.get(i).getPhoneCompany().setName(phonesUpd.get(i).getPhoneCompany().getName());
+            phones.get(i).getPhoneCompany().setPrice(phonesUpd.get(i).getPhoneCompany().getPrice());
+            phones.get(i).getPhoneCompany().getUserAccount().setAmount(phonesUpd.get(i).getPhoneCompany().getUserAccount().getAmount());
         }
         userService.updateUser(user);
         model.addObject("users", userService.allUsers());

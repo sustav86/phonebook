@@ -12,9 +12,11 @@
 <@security.authorize access="!isAuthenticated()">
     response.sendRedirect("/")
 </@security.authorize>
-<#--<form action="${springMacroRequestContext.contextPath}/mobiles" method="post">-->
-<#--    <input type="hidden" name="_method" value="put"/>-->
-    <#list user.phones as phone>
+<#if notEnoughMoney??>
+    <font color="red">${notEnoughMoney}</font>
+    <br><br>
+</#if>
+<#list user.phones as phone>
     <form action="${springMacroRequestContext.contextPath}/mobiles" method="post">
         Mobile number ${phone.countryCode} ${phone.number}
         Mobile company <input type="text" name="name" value="${phone.phoneCompany.name}"/>
@@ -22,9 +24,8 @@
         <input type="submit" value="Update">
         <br><br>
     </form>
-    </#list>
-<#--    <input type="submit" value="Update">-->
-<#--</form>-->
+</#list>
+<h4><a href="${springMacroRequestContext.contextPath}/">Home</a></h4>
 <footer>
     <div>Updated by Sustavov Anton</div>
 </footer>

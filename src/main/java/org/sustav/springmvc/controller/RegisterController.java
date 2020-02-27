@@ -15,7 +15,6 @@ import org.sustav.springmvc.entity.User;
 import org.sustav.springmvc.entity.UserAccount;
 import org.sustav.springmvc.service.UserService;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -72,13 +71,15 @@ public class RegisterController {
         user.getPhones().forEach(phone -> {
             phone.setUser(user);
             PhoneCompany phoneCompany;
+            UserAccount userAccount;
             if ((phoneCompany = phone.getPhoneCompany()) != null) {
                 phoneCompany.setPhone(phone);
-                UserAccount userAccount = new UserAccount();
+                userAccount = phoneCompany.getUserAccount();
                 userAccount.setPhoneCompany(phoneCompany);
                 phoneCompany.setUserAccount(userAccount);
-                phoneCompany.setPrice(new BigDecimal(5));
-                userAccount.setAmount(new BigDecimal(10));
+                userAccount.setPhoneCompany(phoneCompany);
+//                phoneCompany.setPrice(new BigDecimal(10));
+//                userAccount.setAmount(new BigDecimal(5));
             }
         });
     }

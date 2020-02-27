@@ -34,7 +34,6 @@ public class MobileController {
     @PostMapping
     public ModelAndView changeMobileCompany(@ModelAttribute("id") Long id, @ModelAttribute("name") String name,
                                             ModelAndView model, Principal principal) {
-        model.setViewName("user");
         Optional<PhoneCompany> findById = mobileService.findById(id);
         PhoneCompany phoneCompany = findById.orElseThrow(() -> new EntityNotFoundException(id.toString()));
         if (phoneCompany.getName().equals(name)) {
@@ -44,11 +43,14 @@ public class MobileController {
         try {
             mobileService.changeMobileOperator(phoneCompany);
         } catch (NotEnoughMoney notEnoughMoney) {
-
+            User userByName = userService.findUserByName(principal.getName());
+            model.setViewName("changeMobileCompany");
+            model.addObject("notEnoughMoney", "You haven't enough money!");
+            model.addObject("user", userByName);
+            return model;
         }
 
-        User userByName = userService.findUserByName(principal.getName());
-        model.addObject("user", userByName);
+        model.setViewName("redirect:/user/" + principal.getName());
 
         return model;
     }

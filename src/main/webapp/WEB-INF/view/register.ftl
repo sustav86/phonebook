@@ -1,6 +1,7 @@
 <#assign security=JspTaglibs["http://www.springframework.org/security/tags"]/>
 <#import "/spring.ftl" as spring/>
-<html xmlns:form="http://www.w3.org/1999/html" xmlns:Username="http://java.sun.com/jsf/composite">
+<html xmlns:form="http://www.w3.org/1999/html" xmlns:Username="http://java.sun.com/jsf/composite"
+      xmlns:c="http://java.sun.com/jsf/core">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Phone Book</title>
@@ -12,6 +13,14 @@
 <@security.authorize access="isAuthenticated()">
     response.sendRedirect("/")
 </@security.authorize>
+<#if passwordError??>
+    <font color="red">${passwordError}</font>
+    <br><br>
+</#if>
+<#if usernameError??>
+    <font color="red">${usernameError}</font>
+    <br><br>
+</#if>
 <form action="${springMacroRequestContext.contextPath}/register" method="post">
     Username:<br>
     <@spring.formInput "userForm.username"/>
@@ -39,9 +48,11 @@
     <@spring.showErrors "<br>"/>
     <br><br>
     <#list userForm.phones as phone>
-        Country code <input type="number" name="phones[${phone_index}].countryCode" value="${phone.countryCode}"/>
-        Number <input type="number" name="phones[${phone_index}].number" value="${phone.number}"/>
+        Country code <input type="number" name="phones[${phone_index}].countryCode"/>
+        Number <input type="number" name="phones[${phone_index}].number"/>
         Phone company <input type="text" name="phones[${phone_index}].phoneCompany.name"/>
+        Price <input type="number" name="phones[${phone_index}].phoneCompany.price"/>
+        User account amount <input type="number" name="phones[${phone_index}].phoneCompany.userAccount.amount"/>
         <br><br>
     </#list>
     <input type="submit" value="Register">

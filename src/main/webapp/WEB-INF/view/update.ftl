@@ -43,6 +43,8 @@
         Country code <input type="number" name="phones[${phone_index}].countryCode" value="${phone.countryCode}"/>
         Number <input type="number" name="phones[${phone_index}].number" value="${phone.number}"/>
         Phone company <input type="text" name="phones[${phone_index}].phoneCompany.name" value="${phone.phoneCompany.name}"/>
+        Price <input type="text" name="phones[${phone_index}].phoneCompany.price" value="${phone.phoneCompany.price}"/>
+        User account amount <input type="number" name="phones[${phone_index}].phoneCompany.userAccount.amount" value="${phone.phoneCompany.userAccount.amount}"/>
         <br><br>
     </#list>
     <input type="submit" value="Update">
