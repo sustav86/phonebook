@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 
 /**
  * @author Anton Sustavov
@@ -22,6 +23,10 @@ public class PhoneCompany {
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "phone_id")
     private Phone phone;
+    @OneToOne(mappedBy = "phoneCompany", cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY, optional = false)
+    private UserAccount userAccount;
+    private BigDecimal price;
 
     public PhoneCompany(String name) {
         this.name = name;
@@ -52,5 +57,21 @@ public class PhoneCompany {
 
     public void setPhone(Phone phone) {
         this.phone = phone;
+    }
+
+    public UserAccount getUserAccount() {
+        return userAccount;
+    }
+
+    public void setUserAccount(UserAccount userAccount) {
+        this.userAccount = userAccount;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 }

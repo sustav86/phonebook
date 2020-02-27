@@ -8,6 +8,9 @@
 <header>
     <h1><@security.authentication property="principal.username"/></h1>
 </header>
+<form action="${springMacroRequestContext.contextPath}/mobiles/${user.id}" method="get">
+    <button type="submit">Change Mobile Operator</button>
+</form>
 <table>
     <thead>
     <th>ID</th>
