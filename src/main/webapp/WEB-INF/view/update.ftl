@@ -12,6 +12,7 @@
 <@security.authorize access="!isAuthenticated()">
     response.sendRedirect("/")
 </@security.authorize>
+<@spring.bind path="user"/>
 <form action="${springMacroRequestContext.contextPath}/manager/users/${user.id}" method="post">
     <input type="hidden" name="_method" value="put"/>
     Username:<br>
@@ -40,12 +41,13 @@
     <@spring.showErrors "<br>"/>
     <br><br>
     <#list user.phones as phone>
-        Country code <input type="number" name="phones[${phone_index}].countryCode" value="${phone.countryCode}"/>
-        Number <input type="number" name="phones[${phone_index}].number" value="${phone.number}"/>
-        Phone company <input type="text" name="phones[${phone_index}].phoneCompany.name" value="${phone.phoneCompany.name}"/>
-        Price <input type="text" name="phones[${phone_index}].phoneCompany.price" value="${phone.phoneCompany.price}"/>
-        User account amount <input type="number" name="phones[${phone_index}].phoneCompany.userAccount.amount" value="${phone.phoneCompany.userAccount.amount}"/>
+        Country code <@spring.formInput fieldType="number" path="user.phones[${phone_index}].countryCode" attributes="${phone.countryCode}"/>
+        Number <@spring.formInput fieldType="number" path="user.phones[${phone_index}].number" attributes="${phone.number}"/>
+        Phone company <@spring.formInput fieldType="text" path="user.phones[${phone_index}].phoneCompany.name" attributes="${phone.phoneCompany.name}"/>
+        Price <@spring.formInput fieldType="text" path="user.phones[${phone_index}].phoneCompany.price" attributes="${phone.phoneCompany.price}"/>
+        User account amount <@spring.formInput fieldType="number" path="user.phones[${phone_index}].phoneCompany.userAccount.amount" attributes="${phone.phoneCompany.userAccount.amount}"/>
         <br><br>
+        <@spring.showErrors "<br><br>"/>
     </#list>
     <input type="submit" value="Update">
 </form>

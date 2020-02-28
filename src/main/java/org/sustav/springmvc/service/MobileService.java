@@ -8,6 +8,7 @@ import org.sustav.springmvc.entity.UserAccount;
 import org.sustav.springmvc.exception.NotEnoughMoney;
 import org.sustav.springmvc.repository.MobileCompanyRepository;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 /**
@@ -29,9 +30,12 @@ public class MobileService implements IMobileService {
     @Override
     public void changeMobileOperator(PhoneCompany phoneCompany) throws NotEnoughMoney {
         UserAccount userAccount = phoneCompany.getUserAccount();
-        if (phoneCompany.getPrice().compareTo(userAccount.getAmount()) > 0) {
+        BigDecimal price = phoneCompany.getPrice();
+        BigDecimal amount = userAccount.getAmount();
+        if (price.compareTo(amount) > 0) {
             throw new NotEnoughMoney("Not enough money");
         }
+        userAccount.setAmount(price.subtract(amount));
         mobileCompanyRepository.save(phoneCompany);
     }
 }

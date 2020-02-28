@@ -33,6 +33,7 @@ public class PhoneCompany {
     }
 
     public PhoneCompany() {
+        price = new BigDecimal(0);
     }
 
     public Long getId() {

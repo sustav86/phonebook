@@ -57,7 +57,6 @@
         <br><br>
         <@spring.showErrors "<br><br>"/>
     </#list>
-    <#list spring.status.errorMessages as error> <b>${error}</b><br/></#list>
     <input type="submit" value="Register">
 </form>
 <footer>

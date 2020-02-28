@@ -24,6 +24,7 @@ public class UserAccount {
     private PhoneCompany phoneCompany;
 
     public UserAccount() {
+        amount = new BigDecimal(0);
     }
 
     public Long getId() {
