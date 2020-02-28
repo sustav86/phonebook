@@ -21,6 +21,7 @@
     <font color="red">${usernameError}</font>
     <br><br>
 </#if>
+<@spring.bind path="userForm"/>
 <form action="${springMacroRequestContext.contextPath}/register" method="post">
     Username:<br>
     <@spring.formInput "userForm.username"/>
@@ -48,13 +49,15 @@
     <@spring.showErrors "<br>"/>
     <br><br>
     <#list userForm.phones as phone>
-        Country code <input type="number" name="phones[${phone_index}].countryCode"/>
-        Number <input type="number" name="phones[${phone_index}].number"/>
-        Phone company <input type="text" name="phones[${phone_index}].phoneCompany.name"/>
-        Price <input type="number" name="phones[${phone_index}].phoneCompany.price"/>
-        User account amount <input type="number" name="phones[${phone_index}].phoneCompany.userAccount.amount"/>
+        Country code <@spring.formInput fieldType="number" path="userForm.phones[${phone_index}].countryCode"/>
+        Number <@spring.formInput fieldType="number" path="userForm.phones[${phone_index}].number"/>
+        Phone company <@spring.formInput fieldType="text" path="userForm.phones[${phone_index}].phoneCompany.name"/>
+        Price <@spring.formInput fieldType="number" path="userForm.phones[${phone_index}].phoneCompany.price"/>
+        User account amount <@spring.formInput fieldType="number" path="userForm.phones[${phone_index}].phoneCompany.userAccount.amount"/>
         <br><br>
+        <@spring.showErrors "<br><br>"/>
     </#list>
+    <#list spring.status.errorMessages as error> <b>${error}</b><br/></#list>
     <input type="submit" value="Register">
 </form>
 <footer>

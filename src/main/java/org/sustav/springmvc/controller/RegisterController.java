@@ -78,8 +78,6 @@ public class RegisterController {
                 userAccount.setPhoneCompany(phoneCompany);
                 phoneCompany.setUserAccount(userAccount);
                 userAccount.setPhoneCompany(phoneCompany);
-//                phoneCompany.setPrice(new BigDecimal(10));
-//                userAccount.setAmount(new BigDecimal(5));
             }
         });
     }
