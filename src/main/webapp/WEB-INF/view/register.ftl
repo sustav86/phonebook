@@ -59,6 +59,7 @@
     </#list>
     <input type="submit" value="Register">
 </form>
+<h4><a href="${springMacroRequestContext.contextPath}/">Home</a></h4>
 <footer>
     <div>Updated by Sustavov Anton</div>
 </footer>

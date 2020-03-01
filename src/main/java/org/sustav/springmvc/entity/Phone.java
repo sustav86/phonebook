@@ -1,5 +1,7 @@
 package org.sustav.springmvc.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,6 +23,7 @@ public class Phone {
     private Long id;
     private int countryCode;
     private int number;
+    @JsonBackReference
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="user_id", nullable = false)
     private User user;

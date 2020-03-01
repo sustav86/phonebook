@@ -1,5 +1,7 @@
 package org.sustav.springmvc.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,6 +24,7 @@ public class PhoneCompany {
     private String name;
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "phone_id")
+    @JsonIgnore
     private Phone phone;
     @OneToOne(mappedBy = "phoneCompany", cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, optional = false)

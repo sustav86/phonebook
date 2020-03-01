@@ -53,10 +53,12 @@ public class RegisterController {
 
         mergeDetails(user);
 
-        if (!userService.saveUser(user)){
+        User userByName = userService.findUserByName(user.getUsername());
+        if (userByName != null){
             model.addObject("usernameError", "User already exists.");
             return model;
         }
+        userService.saveUser(user);
         model.setViewName("redirect:/");
 
         return model;

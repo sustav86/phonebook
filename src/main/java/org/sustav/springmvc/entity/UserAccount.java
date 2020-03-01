@@ -1,5 +1,7 @@
 package org.sustav.springmvc.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -21,6 +23,7 @@ public class UserAccount {
     private BigDecimal amount;
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
+    @JsonIgnore
     private PhoneCompany phoneCompany;
 
     public UserAccount() {

@@ -1,6 +1,8 @@
 package org.sustav.springmvc.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,6 +13,7 @@ import org.sustav.springmvc.entity.User;
 import org.sustav.springmvc.repository.RoleRepository;
 import org.sustav.springmvc.repository.UserRepository;
 
+import javax.persistence.EntityExistsException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -39,16 +42,15 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    public boolean saveUser(User user) {
+    public User saveUser(User user) {
         User userFromDB = userRepository.findByUsername(user.getUsername());
 
         if (userFromDB != null) {
-            return false;
+            throw new EntityExistsException("User exist");
         }
 
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
-        return true;
+        return userRepository.save(user);
     }
 
     public boolean updateUser(User user) {
@@ -65,7 +67,7 @@ public class UserService implements UserDetailsService {
     public User findUserByName(String username) {
         User user = userRepository.findByUsername(username);
         if (user == null) {
-            throw new UsernameNotFoundException("User not found");
+//            throw new UsernameNotFoundException("User not found");
         }
 
         return user;
@@ -73,6 +75,10 @@ public class UserService implements UserDetailsService {
 
     public List<User> allUsers() {
         return userRepository.findAll();
+    }
+
+    public Page<User> allUsers(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 
     public boolean saveAll(List<User> users) {
